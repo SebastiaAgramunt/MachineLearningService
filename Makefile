@@ -3,49 +3,24 @@
 
 PROJECT := Machine Learning on Torch (Author Sebastia Agramunt)
 
-IMAGE_NAME=machinelearning
-CONTAINER_NAME=ml
-PORT=8888
-
 COLOR_RESET = \033[0m
 COLOR_COMMAND = \033[36m
 COLOR_YELLOW = \033[33m
 COLOR_GREEN = \033[32m
 COLOR_RED = \033[31m
 
-## Build docker image
-build:
-	@echo "${COLOR_GREEN}----\nBuilding docker image ${IMAGE_NAME}...\n----\n${COLOR_RESET}"
-	docker build -t $(IMAGE_NAME) .
+## Download and process files before training
+download-files:
+	python scripts/download_files.py
 
-## Run docker image on a container
-run:
-	@echo "${COLOR_GREEN}----\nBuilding container ${CONTAINER_NAME} and running...\n----\n${COLOR_RESET}"
-	docker run -d -v $(shell pwd):/home/ -p 8888:8888 --name $(CONTAINER_NAME) -i $(IMAGE_NAME)
-
-## Build docker image and run it in container
-build-run: build run
-
-## Stop docker container
-stop:
-	@echo "${COLOR_GREEN}----\nStopping container ${CONTAINER_NAME}...\n----\n${COLOR_RESET}"
-	docker stop $(CONTAINER_NAME)
-
-## Start the docker container
-start:
-	@echo "${COLOR_GREEN}----\nStarting container ${CONTAINER_NAME}...\n----\n${COLOR_RESET}"
-	docker start $(CONTAINER_NAME)
-
-## Stop docker container and remove containers and images
-remove: stop
-	@echo "${COLOR_GREEN}----\nStopping container ${CONTAINER_NAME}...\n----\n${COLOR_RESET}"
-	docker rm $(CONTAINER_NAME)
-	@echo "${COLOR_GREEN}----\nRemoving Image ${IMAGE_NAME}...\n----\n${COLOR_RESET}"
-	docker rmi $(IMAGE_NAME)
-
-## train script
+## Training the model
 train: 
 	echo "Training..."
+
+## Make software tests
+testing:
+	echo "Testing software..."
+	python -m unittest discover -v
 
 ## Prints help message
 help:
