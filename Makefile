@@ -18,7 +18,7 @@ download-files:
 
 ## Training the model
 train: 
-	echo "Training..."
+	echo "Training model..."
 	python scripts/train_model.py
 
 test-model:
