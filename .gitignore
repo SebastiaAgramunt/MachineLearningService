@@ -26,3 +26,4 @@ runs/*
 env
 lib
 data/
+models/

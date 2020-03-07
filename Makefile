@@ -9,18 +9,26 @@ COLOR_YELLOW = \033[33m
 COLOR_GREEN = \033[32m
 COLOR_RED = \033[31m
 
+all: download-files train test-model
+
 ## Download and process files before training
 download-files:
+	echo "Downloading files and preprocessing data..."
 	python scripts/download_files.py
 
 ## Training the model
 train: 
 	echo "Training..."
+	python scripts/train_model.py
+
+test-model:
+	echo "Testing model..."
+	python scripts/evaluate_model.py
 
 ## Make software tests
 testing:
 	echo "Testing software..."
-	python -m unittest discover -v
+	py.test -v
 
 ## Prints help message
 help:

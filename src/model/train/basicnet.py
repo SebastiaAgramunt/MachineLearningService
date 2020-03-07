@@ -29,29 +29,10 @@ class BasicNet(ModelTrainer, torch.nn.Module):
         x_ = self.linear3(x_)
         return x_
 
-    def predict(self, x, threshold=0.5):
-        predictions = torch.sigmoid(self.forward(x))
-
-        p = []
-        for prediction in predictions:
-            if prediction>threshold:
-                p.append(1)
-            else:
-                p.append(0)
-        return torch.tensor(p)
-
-    def train(self, inputs: pd.DataFrame, targets: pd.DataFrame,
+    def learn(self, data: SalaryDataset,
     learning_rate: float, epochs: int,  batch_size=int)->None:
 
-         # Convert data to features and target torch vectors
-        X = torch.from_numpy(inputs.values).float().to("cpu")
-        y = torch.tensor(targets.values, dtype=torch.long, device="cpu").reshape(-1, 1)
-        #X = inputs
-        #y = targets
-
-        # Helper for feeding the data to the net
-        data = SalaryDataset(X, y)
-        data = DataLoader(data, batch_size=batch_size, shuffle=False)
+        data = torch.utils.data.DataLoader(data, batch_size=batch_size, shuffle=False)
 
         # Train mode (upddate weights)
         self.train()
@@ -75,15 +56,11 @@ class BasicNet(ModelTrainer, torch.nn.Module):
                 loss.backward()
                 #Adjust weights
                 optimizer.step()
-            if epoch%10==0:
+            if epoch%5==0:
                 print(f"Epoch:{epoch}, loss:{sum(losses)/len(losses)}")
 
 
-    def save_local(self):
-        pass
+    def save_local(self, path):
+        torch.save(self, path)
 
-
-if __name__ == '__main__':
-    a = BasicNet(10, 5)
-    print(a.__dict__)
 
