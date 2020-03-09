@@ -28,3 +28,5 @@ if __name__ == '__main__':
     # save results
     with open(config.model_path + '/' + config.test_log, "w+") as file:
         file.write(json.dumps(test_data)+'\n')
+    
+    print(test_data)

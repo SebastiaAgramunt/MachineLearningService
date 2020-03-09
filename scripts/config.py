@@ -88,3 +88,18 @@ class ParseEvaluation:
         test_log = config.get('testing', 'TEST_LOG')
         
         return cls(model_path, model_name, data_dir, test_log)
+
+
+class ParseServing:
+    def __init__(self, model_path: str, model_name: str, port: int):
+        self.model_path = model_path
+        self.model_name = model_name
+        self.port = port
+
+    @classmethod
+    def build_from_config(cls, config: ConfigParser = config_preproc):
+        model_path = config.get('training', 'MODEL_PATH').replace('{root_path}', root_path)
+        model_name = config.get('training', 'MODEL_NAME')
+        port = config.get('serve', 'PORT')
+        
+        return cls(model_path, model_name, port)

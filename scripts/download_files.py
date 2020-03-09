@@ -19,6 +19,9 @@ def download_data(source: str, dest: str):
     urllib.request.urlretrieve(source, dest)
 
 def _data_preparation(config: ParseDataPreprocessing):
+    """
+    Variable selection for the data and train-test split
+    """
     df = pd.read_csv(config.data_dir+'/raw/'+config.filename)
     df["class"] = df["class"].apply(lambda x: 0 if x.strip() == '<=50K' else 1)
     numerical = [elem for elem in df._get_numeric_data().columns if elem not in ["class"]]
@@ -52,6 +55,9 @@ def _data_preparation(config: ParseDataPreprocessing):
 
 
 def _data_normalisation(config: ParseDataPreprocessing):
+    """
+    Normalise data
+    """
 
     X_train = pd.read_csv(config.data_dir+'/processed/'+"X_train.csv")
     X_test = pd.read_csv(config.data_dir+'/processed/'+"X_test.csv")
@@ -99,7 +105,6 @@ def _data_normalisation(config: ParseDataPreprocessing):
 if __name__ == "__main__":
 
     config = ParseDataPreprocessing.build_from_config()
-    print(config.__dict__)
 
     create_dir(config.data_dir)
     create_dir(config.data_dir+'/raw')
