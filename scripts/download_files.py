@@ -51,8 +51,6 @@ def _data_preparation(config: ParseDataPreprocessing):
     y_train.to_csv(config.data_dir+'/processed/'+'y_train.csv', index=False, header=True)
     y_test.to_csv(config.data_dir+'/processed/'+'y_test.csv', index=False, header=True)
 
-    return X_train, X_test, y_train, y_test
-
 
 def _data_normalisation(config: ParseDataPreprocessing):
     """

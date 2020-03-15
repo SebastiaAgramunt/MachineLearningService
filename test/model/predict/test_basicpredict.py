@@ -2,8 +2,8 @@ import unittest
 from src.model.predict.basicpredict import BasicNetPredict
 
 class TestBasicNetPredict(unittest.TestCase):
-    def setUp(self):
-        self.init_obj = BasicNetPredict('file')
+    #def setUp(self):
+    #    self.init_obj = BasicNetPredict('file')
 
     def test_input_1(self):
         self.assertTrue(True)
