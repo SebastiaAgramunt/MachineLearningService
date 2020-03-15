@@ -103,3 +103,15 @@ class ParseServing:
         port = config.get('serve', 'PORT')
         
         return cls(model_path, model_name, port)
+
+class ParseFakeClient:
+    def __init__(self, port: int, data_dir: str):
+        self.port = port
+        self.data_dir = data_dir
+
+    @classmethod
+    def build_from_config(cls, config: ConfigParser = config_preproc):
+        port = config.get('serve', 'PORT')
+        data_dir = config.get('preprocessing', 'DATA_DIR').replace('{root_path}', root_path)
+        
+        return cls(port, data_dir)

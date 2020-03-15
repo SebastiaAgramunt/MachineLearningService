@@ -25,6 +25,14 @@ test-model:
 	echo "Testing model..."
 	python scripts/evaluate_model.py
 
+start-server:
+	echo "Starting server..."
+	python scripts/server.py
+
+start-client:
+	echo "Starting client..."
+	python scripts/fake_client.py --id=client1
+
 ## Make software tests
 testing:
 	echo "Testing software..."
