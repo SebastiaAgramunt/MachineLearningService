@@ -1,9 +1,9 @@
-import torch 
+import torch
 import torch.nn as nn
-import pandas as pd
 
 from src.model.train.base import ModelTrainer
 from src.dataloading.salary_loader import SalaryDataset
+
 
 # TODO: implement cpu or gpu to try
 class BasicNet(ModelTrainer, torch.nn.Module):
@@ -29,10 +29,16 @@ class BasicNet(ModelTrainer, torch.nn.Module):
         x_ = self.linear3(x_)
         return x_
 
-    def learn(self, data: SalaryDataset,
-    learning_rate: float, epochs: int,  batch_size=int)->None:
+    def learn(self,
+              data: SalaryDataset,
+              learning_rate: float,
+              epochs: int,
+              batch_size=int
+              ) -> None:
 
-        data = torch.utils.data.DataLoader(data, batch_size=batch_size, shuffle=False)
+        data = torch.utils.data.DataLoader(data,
+                                           batch_size=batch_size,
+                                           shuffle=False)
 
         # Train mode (upddate weights)
         self.train()
@@ -52,15 +58,12 @@ class BasicNet(ModelTrainer, torch.nn.Module):
                 # Calculate loss
                 loss = criterion(y_pred, y.float())
                 losses.append(loss.item())
-                #Compute gradients
+                # Compute gradients
                 loss.backward()
-                #Adjust weights
+                # Adjust weights
                 optimizer.step()
-            if epoch%5==0:
+            if epoch % 5 == 0:
                 print(f"Epoch:{epoch}, loss:{sum(losses)/len(losses)}")
-
 
     def save_local(self, path):
         torch.save(self, path)
-
-

@@ -7,7 +7,7 @@ class ModelPredictor(ABC):
     """
     def __init__(self, filepath):
         self.filepath = filepath
-    
+
     @abstractmethod
     def forward(self, *args, **kwargs):
         pass

@@ -25,18 +25,23 @@ test-model:
 	echo "Testing model..."
 	python scripts/evaluate_model.py
 
+## Start a server
 start-server:
 	echo "Starting server..."
 	python scripts/server.py
 
+## Start a client with id client1
 start-client:
 	echo "Starting client..."
 	python scripts/fake_client.py --id=client1
 
-## Make software tests
+## Run unit test and PEP8 format
 testing:
-	echo "Testing software..."
 	py.test -v
+	flake8
+	
+
+
 
 ## Prints help message
 help:
