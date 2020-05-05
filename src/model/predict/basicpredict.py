@@ -31,7 +31,7 @@ class BasicNetPredict(ModelPredictor, torch.nn.Module):
 
     def predict(self, x, threshold=0.5):
         predictions = self.forward(x)
-        
+
         p = []
         for prediction in predictions:
             if prediction > threshold:
@@ -42,7 +42,7 @@ class BasicNetPredict(ModelPredictor, torch.nn.Module):
 
     def test(self, inputs: pd.DataFrame, targets: pd.DataFrame):
         x = torch.from_numpy(inputs.values).float().to("cpu")
-        
+
         y = torch.tensor(targets.values,
                          dtype=torch.long,
                          device="cpu").reshape(-1, 1)
