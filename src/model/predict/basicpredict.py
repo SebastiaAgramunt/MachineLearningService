@@ -30,8 +30,8 @@ class BasicNetPredict(ModelPredictor, torch.nn.Module):
         return self.model.forward(x)
 
     def predict(self, x, threshold=0.5):
-        predictions = torch.sigmoid(self.forward(x))
-
+        predictions = self.forward(x)
+        
         p = []
         for prediction in predictions:
             if prediction > threshold:
@@ -42,6 +42,7 @@ class BasicNetPredict(ModelPredictor, torch.nn.Module):
 
     def test(self, inputs: pd.DataFrame, targets: pd.DataFrame):
         x = torch.from_numpy(inputs.values).float().to("cpu")
+        
         y = torch.tensor(targets.values,
                          dtype=torch.long,
                          device="cpu").reshape(-1, 1)
@@ -49,7 +50,7 @@ class BasicNetPredict(ModelPredictor, torch.nn.Module):
         # self.model.eval()
         torch.set_printoptions(edgeitems=3)
         y_hat = self.predict(x)
-        y_proba = torch.sigmoid(self.forward(x)).detach().numpy()
+        y_proba = self.forward(x).detach().numpy()
 
         return evaluate_classification(y.numpy(), y_hat, y_proba)
 
