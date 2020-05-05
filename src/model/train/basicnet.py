@@ -27,6 +27,7 @@ class BasicNet(ModelTrainer, torch.nn.Module):
         x_ = self.linear2(x_)
         x_ = self.act(x_)
         x_ = self.linear3(x_)
+        x_ = torch.sigmoid(x_)
         return x_
 
     def learn(self,
@@ -54,7 +55,7 @@ class BasicNet(ModelTrainer, torch.nn.Module):
                 # Clear the previous gradients
                 optimizer.zero_grad()
                 # Precit the output for Given input
-                y_pred = torch.sigmoid(self.forward(x).float())
+                y_pred = self.forward(x).float()
                 # Calculate loss
                 loss = criterion(y_pred, y.float())
                 losses.append(loss.item())
