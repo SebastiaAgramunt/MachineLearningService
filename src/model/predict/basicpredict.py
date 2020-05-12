@@ -31,7 +31,7 @@ class BasicNetPredict(ModelPredictor, torch.nn.Module):
 
     def predict(self, x, threshold=0.5):
         predictions = self.forward(x)
-
+        print(predictions[2])
         p = []
         for prediction in predictions:
             if prediction > threshold:
