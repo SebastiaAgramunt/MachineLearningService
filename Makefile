@@ -1,5 +1,6 @@
 .SILENT:
 .DEFAULT_GOAL := help
+SHELL         := /bin/bash
 
 PROJECT := Machine Learning on Torch (Author Sebastia Agramunt)
 
@@ -10,6 +11,9 @@ COLOR_GREEN = \033[32m
 COLOR_RED = \033[31m
 
 all: download-files train test-model
+
+init:
+	pip install -r requirements.txt
 
 ## Download and process files before training
 download-files:
@@ -40,6 +44,10 @@ testing:
 	py.test -v
 	flake8
 	
+
+## Start a server loading model and setting port
+start-service:
+	cd service; flask run
 
 
 
