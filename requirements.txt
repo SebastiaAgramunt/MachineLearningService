@@ -3,7 +3,7 @@ scikit-learn==0.22.2.post1
 sklearn==0.0
 torch==1.4.0
 pytest==5.3.5
-Flask==1.1.1
+Flask==2.2.5
 requests==2.23.0
 pytest-cov==2.8.1
 flake8==3.7.9
